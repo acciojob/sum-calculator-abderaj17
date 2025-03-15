@@ -19,7 +19,7 @@ const SumCalculator = () => {
   return (
     <div>
       <h1>Sum Calculator</h1>
-      <input type="text" onChange={handleChangeInput} placeholder="Enter numbers" />
+      <input type="number" onChange={handleChangeInput} placeholder="Enter numbers" />
       <br />
       <div className="result">Sum: {sum}</div>
     </div>

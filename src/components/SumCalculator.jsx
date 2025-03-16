@@ -1,29 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from 'react'
 
 const SumCalculator = () => {
-  const [numbers, setNumbers] = useState([]); // Stores entered numbers
-  const [sum, setSum] = useState(0); // Stores the running total sum
+  const [inputValue, setInputValue] = useState("");
+  const [sum, setSum] = useState(0);
 
-  // Handles input changes and parses numbers correctly
-  const handleChangeInput = (e) => {
-    let numValue = e.target.value; // Fix variable name for readability
-    const numArr = numValue
-      .split(",") // Allow comma-separated values
-      .map((num) => parseFloat(num.trim())) // Convert to numbers
-      .filter((num) => !isNaN(num)); 
-    setNumbers(numArr);
-    setSum(numArr.reduce((acc, num)=> acc + num,0));
+  const handleChangeInput = (e)=>{
+    setInputValue(e.target.value);
   };
 
+  useEffect(()=>{
+    const numArr = inputValue
+    .split(",")
+    .map((num)=> num.trim())
+    .filter((num)=> num !== "" && !isNaN(num))
+    .map((num)=> parseFloat(num));
+
+    const newSum = numArr.reduce((acc, num)=> acc + num, 0);
+    setSum(newSum);
+  }, [inputValue]);
 
   return (
-    <div>
+    <div style={{textAlign: "center", marginTop:"20px"}}>
       <h1>Sum Calculator</h1>
-      <input type="number" onChange={handleChangeInput} placeholder="Enter numbers" />
-      <br />
-      <div className="result">Sum: {sum}</div>
+      <input 
+      type='text'
+      value={inputValue}
+      onChange={handleChangeInput}
+      placeholder='Enter numbers'
+      />
+      <br/>
+      <h2>Sum: {sum}</h2>
     </div>
-  );
-};
+  )
+}
 
-export default SumCalculator;
+export default SumCalculator
